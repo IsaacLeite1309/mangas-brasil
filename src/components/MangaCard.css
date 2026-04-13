@@ -1,0 +1,49 @@
+.manga-card {
+  background: #26354F;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  width: 200px;
+  border: 1px solid #333;
+}
+
+.manga-card:hover {
+  transform: translateY(-5px);
+  border-color: #2DADE2;
+}
+
+.manga-image img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+}
+
+.manga-info {
+  padding: 12px;
+  color: white;
+}
+
+.manga-info h3 {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.manga-info p {
+  font-size: 0.9rem;
+  color: #aaa;
+  margin: 4px 0;
+}
+
+.btn-detalhes {
+  margin-top: 10px;
+  width: 100%;
+  padding: 8px;
+  background: #2DADE2;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
