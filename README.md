@@ -19,7 +19,7 @@ Nesta fase inicial, estabelecemos a fundação da aplicação utilizando **React
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 - **React.js**: Biblioteca principal para construção da UI.
 - **Vite**: Ferramenta de build e servidor de desenvolvimento.
 - **CSS3**: Estilização modularizada por componente.
