@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Header from './components/Header';
-import SearchBar from './components/SearchBar';
+
 import MangaList from './components/MangaList';
 import Sobre from './components/Sobre';
 import Cadastro from './components/Cadastro';
