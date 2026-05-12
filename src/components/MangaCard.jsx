@@ -1,19 +1,24 @@
 import './MangaCard.css';
 
-const MangaCard = ({ titulo, editora, edição, imagem }) => {
+export default function MangaCard({ manga, onVerDetalhes }) {
   return (
-    <div className="manga-card">
-      <div className="manga-image">
-        <img src={imagem || 'https://via.placeholder.com/150x220?text=Sem+Capa'} alt={titulo} />
-      </div>
-      <div className="manga-info">
-        <h3>{titulo}</h3>
-        <p><strong>Editora:</strong> {editora}</p>
-        <p><strong>Edição:</strong> {edição}</p>
-        <button className="btn-detalhes">Ver Detalhes</button>
-      </div>
-    </div>
-  );
-};
+    <article className="manga-card">
+      
+      {manga.capa && (
+        <div className="capa-container">
+          <img src={manga.capa} alt={`Capa do mangá ${manga.titulo}`} className="img-capa" />
+        </div>
+      )}
 
-export default MangaCard;
+      <div className="manga-info">
+        <h3>{manga.titulo}</h3>
+        <p><strong>Editora:</strong> {manga.editora}</p>
+        <p><strong>Edição:</strong> {manga.edicao}</p>
+      </div>
+
+      <button className="btn-detalhes" onClick={() => onVerDetalhes(manga)}>
+        Ver detalhes
+      </button>
+    </article>
+  );
+}
