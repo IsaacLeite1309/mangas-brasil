@@ -19,6 +19,20 @@ Nesta fase inicial, estabelecemos a fundação da aplicação utilizando **React
 
 ---
 
+## Status da Sprint 2: SPA, Formulários e Persistência 
+Nesta segunda fase, o aplicativo evoluiu para uma **Single Page Application (SPA)** funcional, implementando lógica de estado complexa e persistência de dados no navegador.
+
+### Funcionalidades Implementadas na Sprint 2:
+- [x] **Navegação SPA:** Sistema de rotas customizado utilizando `useState` e renderização condicional para alternar entre "Catálogo", "Cadastro" e "Sobre" sem refresh.
+- [x] **Formulários Controlados:** Implementação de formulário de cadastro com múltiplos inputs (Título, Autor, Editora, Edição/Formato, URL da Capa e Sinopse) gerenciados por um único objeto de estado.
+- [x] **Persistência com LocalStorage:** Desenvolvimento de um **Custom Hook** (`useLocalStorage`) para sincronizar o acervo de mangás com o armazenamento local do navegador.
+- [x] **Renderização Dinâmica:** Listagem automática de cards baseada no array de dados do LocalStorage utilizando o método `.map()`.
+- [x] **Filtro de Busca Reativo:** Sistema de busca em tempo real implementado no componente `MangaList` utilizando o método `.filter()`.
+- [x] **Página de Detalhes:** Visualização expandida da obra com todas as informações técnicas e capa ampliada, utilizando fluxo de "State Lifting".
+- [x] **Arquitetura de Gitflow:** Organização do desenvolvimento através de branches de `feature`, `develop` e Pull Requests no GitHub.
+
+---
+
 ## Tecnologias Utilizadas
 - **React.js**: Biblioteca principal para construção da UI.
 - **Vite**: Ferramenta de build e servidor de desenvolvimento.
