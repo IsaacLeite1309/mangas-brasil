@@ -1,0 +1,89 @@
+
+.cadastro-container {
+  max-width: 600px;
+  margin: 3rem auto;
+  padding: 2rem 3rem;
+  background-color: #26354F; 
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  color: #ffffff;
+}
+
+.cadastro-container h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #2DADE2; 
+}
+
+
+.form-manga {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 500;
+  color: #cccccc;
+}
+
+
+.form-group input,
+.form-group textarea {
+  padding: 0.8rem 1rem;
+  border: 1px solid #3b4d6b; 
+  border-radius: 6px;
+  background-color: #1a2538; 
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #2DADE2;
+  box-shadow: 0 0 0 2px rgba(45, 173, 226, 0.3); 
+}
+
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #6b7a90;
+}
+
+
+.btn-submit {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #2DADE2;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.btn-submit:hover {
+  background-color: #218fb9; 
+}
+
+
+.btn-submit:active {
+  transform: scale(0.98);
+}
