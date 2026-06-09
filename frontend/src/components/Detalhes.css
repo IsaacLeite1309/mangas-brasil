@@ -95,3 +95,49 @@
     max-width: 300px;
   }
 }
+
+.detalhes-error {
+  padding: 0.9rem 1rem;
+  border: 1px solid #ff6b6b;
+  border-radius: 6px;
+  background-color: rgba(255, 107, 107, 0.12);
+  color: #ffd5d5;
+}
+
+.detalhes-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.btn-editar,
+.btn-excluir {
+  padding: 0.85rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-editar {
+  background-color: #2DADE2;
+}
+
+.btn-editar:hover {
+  background-color: #218fb9;
+}
+
+.btn-excluir {
+  background-color: #c24141;
+}
+
+.btn-excluir:hover {
+  background-color: #9f3030;
+}
+
+.btn-excluir:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
