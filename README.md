@@ -1,58 +1,313 @@
-# MangaBrasil - Catálogo Nacional de Mangás
+# MangaBrasil
 
-## Sobre o Projeto
-O **MangaBrasil** é uma plataforma dedicada à catalogação e consulta de informações técnicas sobre mangás publicados no mercado editorial brasileiro. O projeto visa centralizar dados como editora, formato, status de publicação e preços de capa, auxiliando colecionadores e leitores a navegarem pela diversidade de títulos nacionais.
+MangaBrasil e uma aplicacao Full-Stack para cadastro, consulta e gerenciamento de um acervo de mangas. O projeto evoluiu ao longo das sprints de uma SPA em React com persistencia em `localStorage` para um sistema integrado com Front-End React, API RESTful em Node.js/Express e banco de dados MongoDB Atlas.
 
-Este projeto faz parte da avaliação contínua da disciplina de **Desenvolvimento Front-End II**, sendo desenvolvido de forma incremental ao longo de três Sprints.
+## Visao Geral
 
----
+O sistema permite:
 
-## Status da Sprint 1: Pré-Projeto
-Nesta fase inicial, estabelecemos a fundação da aplicação utilizando **React + Vite**. O foco foi a estruturação da interface através de componentes reutilizáveis, gerenciamento de estado inicial e manipulação de eventos.
+- cadastrar mangas no acervo;
+- listar obras cadastradas;
+- buscar mangas por titulo, autor ou editora;
+- visualizar detalhes de uma obra;
+- editar dados cadastrados;
+- remover obras do acervo.
 
-### Funcionalidades Implementadas:
-- [x] Configuração do ambiente com Vite e React.
-- [x] Estruturação de componentes base: `Header`, `SearchBar`, `MangaList` e `MangaCard`.
-- [x] Renderização dinâmica de lista de objetos (Mapeamento de dados).
-- [x] Gerenciamento de estado de busca com `useState`.
-- [x] Interface responsiva e ocupando 100% da viewport.
+Na Sprint 3, o `localStorage` deixou de ser a fonte principal de dados. O Front-End passou a consumir uma API RESTful propria, e a persistencia passou a ser feita no MongoDB Atlas.
 
----
+## Estrutura Do Projeto
 
-## Status da Sprint 2: SPA, Formulários e Persistência 
-Nesta segunda fase, o aplicativo evoluiu para uma **Single Page Application (SPA)** funcional, implementando lógica de estado complexa e persistência de dados no navegador.
-
-### Funcionalidades Implementadas na Sprint 2:
-- [x] **Navegação SPA:** Sistema de rotas customizado utilizando `useState` e renderização condicional para alternar entre "Catálogo", "Cadastro" e "Sobre" sem refresh.
-- [x] **Formulários Controlados:** Implementação de formulário de cadastro com múltiplos inputs (Título, Autor, Editora, Edição/Formato, URL da Capa e Sinopse) gerenciados por um único objeto de estado.
-- [x] **Persistência com LocalStorage:** Desenvolvimento de um **Custom Hook** (`useLocalStorage`) para sincronizar o acervo de mangás com o armazenamento local do navegador.
-- [x] **Renderização Dinâmica:** Listagem automática de cards baseada no array de dados do LocalStorage utilizando o método `.map()`.
-- [x] **Filtro de Busca Reativo:** Sistema de busca em tempo real implementado no componente `MangaList` utilizando o método `.filter()`.
-- [x] **Página de Detalhes:** Visualização expandida da obra com todas as informações técnicas e capa ampliada, utilizando fluxo de "State Lifting".
-- [x] **Arquitetura de Gitflow:** Organização do desenvolvimento através de branches de `feature`, `develop` e Pull Requests no GitHub.
-
----
+```text
+mangas-brasil/
+├── backend/
+│   ├── src/
+│   │   ├── models/
+│   │   │   └── mangaModel.js
+│   │   ├── routes/
+│   │   │   ├── mangaRoutes.js
+│   │   │   └── mangaRoutes.test.js
+│   │   └── app.js
+│   ├── .env.example
+│   ├── eslint.config.js
+│   ├── jest.config.js
+│   ├── package.json
+│   └── package-lock.json
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── services/
+│   │   │   └── api.js
+│   │   ├── App.jsx
+│   │   ├── index.css
+│   │   └── main.jsx
+│   ├── .env.example
+│   ├── eslint.config.js
+│   ├── package.json
+│   └── vite.config.js
+└── README.md
+```
 
 ## Tecnologias Utilizadas
-- **React.js**: Biblioteca principal para construção da UI.
-- **Vite**: Ferramenta de build e servidor de desenvolvimento.
-- **CSS3**: Estilização modularizada por componente.
-- **React Router Dom**: (Instalado) Preparado para navegação na Sprint 2.
-- **Axios**: (Instalado) Preparado para consumo de API na Sprint 3.
 
-## Como Rodar o Projeto
+### Front-End
 
-Para clonar e executar esta aplicação em sua máquina, você precisará do [Git](https://git-scm.com) e do [Node.js](https://nodejs.org/) instalados.
+- React
+- Vite
+- React Router DOM
+- Axios
+- CSS por componente
+
+### Back-End
+
+- Node.js
+- Express.js
+- MongoDB Atlas
+- Mongoose
+- Dotenv
+- CORS
+
+### Qualidade E Testes
+
+- ESLint
+- Jest
+- Supertest
+- Relatorio de cobertura de testes
+
+## Rotas Do Front-End
+
+```text
+/catalogo      Catalogo de mangas
+/cadastro      Cadastro de nova obra
+/mangas/:id    Detalhes de uma obra
+/editar/:id    Edicao de uma obra
+/sobre         Informacoes sobre o projeto
+```
+
+A rota `/` redireciona para `/catalogo`.
+
+## Endpoints Da API
+
+Base local da API:
+
+```text
+http://localhost:3001/api
+```
+
+Rotas principais:
+
+```text
+GET    /api/health       Verifica se a API esta online
+GET    /api/mangas       Lista todos os mangas
+POST   /api/mangas       Cadastra um novo manga
+GET    /api/mangas/:id   Busca um manga por ID
+PUT    /api/mangas/:id   Atualiza um manga
+DELETE /api/mangas/:id   Remove um manga
+```
+
+## Como Rodar O Projeto
+
+Para executar o projeto localmente, e necessario ter instalado:
+
+- Git
+- Node.js
+- npm
+- uma URI valida do MongoDB Atlas
+
+## Configurando O Back-End
+
+Acesse a pasta do backend:
 
 ```bash
-# 1. Clone o repositório
-$ git clone https://github.com/IsaacLeite1309/mangas-brasil.git
+cd backend
+```
 
-# 2. Acesse a pasta do projeto
-$ cd mangas-brasil
+Instale as dependencias:
 
-# 3. Instale as dependências
-$ npm install
+```bash
+npm install
+```
 
-# 4. Inicie o servidor de desenvolvimento
-$ npm run dev
+Crie um arquivo `.env` dentro da pasta `backend`, seguindo o exemplo de `.env.example`:
+
+```env
+MONGODB_URI=mongodb+srv://usuario:senha@cluster.mongodb.net/mangas-brasil?retryWrites=true&w=majority
+PORT=3001
+```
+
+Inicie a API:
+
+```bash
+npm run dev
+```
+
+Se estiver tudo certo, a API ficara disponivel em:
+
+```text
+http://localhost:3001
+```
+
+Teste rapido:
+
+```text
+http://localhost:3001/api/health
+```
+
+## Configurando O Front-End
+
+Em outro terminal, acesse a pasta do frontend:
+
+```bash
+cd frontend
+```
+
+Instale as dependencias:
+
+```bash
+npm install
+```
+
+Inicie o servidor de desenvolvimento:
+
+```bash
+npm run dev
+```
+
+Abra no navegador:
+
+```text
+http://localhost:5173/catalogo
+```
+
+## Variaveis De Ambiente Do Front-End
+
+O Front-End possui um arquivo `.env.example` com a URL base da API:
+
+```env
+VITE_API_URL=http://localhost:3001/api
+```
+
+Se o arquivo `.env` do Front-End nao existir, a aplicacao usa `http://localhost:3001/api` como valor padrao.
+
+## Scripts Do Back-End
+
+Dentro da pasta `backend`:
+
+```bash
+npm run dev
+```
+
+Inicia a API em modo de desenvolvimento.
+
+```bash
+npm run start
+```
+
+Inicia a API em modo padrao.
+
+```bash
+npm run lint
+```
+
+Executa a analise estatica com ESLint.
+
+```bash
+npm run test
+```
+
+Executa os testes com Jest.
+
+```bash
+npm run test:coverage
+```
+
+Executa os testes e gera o relatorio de cobertura.
+
+## Scripts Do Front-End
+
+Dentro da pasta `frontend`:
+
+```bash
+npm run dev
+```
+
+Inicia o Vite em modo de desenvolvimento.
+
+```bash
+npm run build
+```
+
+Gera a versao de producao do Front-End.
+
+```bash
+npm run lint
+```
+
+Executa a analise estatica com ESLint.
+
+```bash
+npm run preview
+```
+
+Executa uma previa local da build de producao.
+
+## Testes E Cobertura
+
+O Back-End possui testes automatizados com Jest e Supertest para as rotas de mangas.
+
+Para rodar:
+
+```bash
+cd backend
+npm run test:coverage
+```
+
+Durante a validacao local, os testes cobriram os principais fluxos:
+
+- cadastro de manga;
+- listagem de mangas;
+- busca por ID;
+- atualizacao;
+- remocao;
+- erros de validacao;
+- ID invalido;
+- manga nao encontrado;
+- rota de health check.
+
+A cobertura minima configurada e de 80%.
+
+## Evolucao Por Sprint
+
+### Sprint 1
+
+- Criacao da base React com Vite.
+- Componentizacao inicial.
+- Renderizacao dinamica de lista.
+- Busca local.
+
+### Sprint 2
+
+- SPA com navegacao por estado.
+- Formulario controlado.
+- Persistencia com `localStorage`.
+- Hook customizado `useLocalStorage`.
+- Tela de detalhes.
+
+### Sprint 3
+
+- Reorganizacao do repositorio em `/frontend` e `/backend`.
+- Criacao de API RESTful com Node.js, Express e MongoDB Atlas.
+- CRUD completo no Back-End.
+- Integracao do Front-End com API usando Axios.
+- Substituicao do `localStorage` pelo banco MongoDB.
+- Rotas reais com React Router.
+- Testes automatizados com Jest/Supertest.
+- ESLint no Front-End e Back-End.
+
+## Integrantes
+
+- Isaac da Silva Leite
+- Lucas Dalla Porta Freitas
+- Gabriel Mourgues Moreira
+- Klaudenilson Sampaio Alves
+- Higor Pessoa da Silva
