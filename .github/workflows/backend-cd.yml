@@ -20,9 +20,24 @@ jobs:
           script_stop: true
           script: |
             cd "${{ secrets.EC2_BACKEND_PATH }}"
+
             git fetch origin develop
             git reset --hard origin/develop
+
             npm install
-            pm2 restart mangas-brasil-api || pm2 start src/app.js --name mangas-brasil-api
+
+            pm2 restart mangas-brasil-api --update-env || pm2 start src/app.js --name mangas-brasil-api
             pm2 save
-            curl --fail http://localhost:3001/api/health
+
+            for i in {1..30}; do
+              if curl --fail --silent http://localhost:3001/api/health; then
+                echo "API online"
+                exit 0
+              fi
+
+              echo "Aguardando API iniciar... tentativa $i"
+              sleep 2
+            done
+
+            pm2 logs mangas-brasil-api --lines 80 --nostream
+            exit 1
