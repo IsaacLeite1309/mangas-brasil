@@ -224,6 +224,22 @@ describe('Rotas de mangas', () => {
     });
   });
 
+  describe('GET /', () => {
+    it('deve retornar informacoes da API', async () => {
+      const response = await request(app).get('/');
+
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual({
+        service: 'MangaBrasil API',
+        status: 'online',
+        endpoints: {
+          health: '/api/health',
+          mangas: '/api/mangas'
+        }
+      });
+    });
+  });
+
   afterAll(async () => {
     await mongoose.disconnect();
   });
