@@ -33,3 +33,9 @@ jobs:
 
       - name: Run tests with coverage
         run: npm run test:coverage
+
+      - name: Install Selenium WebDriver
+        run: npm install --no-save selenium-webdriver
+
+      - name: Run interface test with Selenium
+        run: npm run test:interface

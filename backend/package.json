@@ -8,6 +8,7 @@
     "start": "node src/app.js",
     "lint": "eslint .",
     "test": "jest",
+    "test:interface": "node tests/rootInterface.selenium.js",
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
@@ -22,6 +23,7 @@
     "globals": "^15.14.0",
     "jest": "^29.7.0",
     "nodemon": "^3.1.9",
+    "selenium-webdriver": "^4.44.0",
     "supertest": "^7.0.0"
   }
 }
