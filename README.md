@@ -19,33 +19,39 @@ Na Sprint 3, o `localStorage` deixou de ser a fonte principal de dados. O Front-
 
 ```text
 mangas-brasil/
-├── backend/
-│   ├── src/
-│   │   ├── models/
-│   │   │   └── mangaModel.js
-│   │   ├── routes/
-│   │   │   ├── mangaRoutes.js
-│   │   │   └── mangaRoutes.test.js
-│   │   └── app.js
-│   ├── .env.example
-│   ├── eslint.config.js
-│   ├── jest.config.js
-│   ├── package.json
-│   └── package-lock.json
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── services/
-│   │   │   └── api.js
-│   │   ├── App.jsx
-│   │   ├── index.css
-│   │   └── main.jsx
-│   ├── .env.example
-│   ├── eslint.config.js
-│   ├── package.json
-│   └── vite.config.js
-└── README.md
+|-- backend/
+|   |-- src/
+|   |   |-- models/
+|   |   |   `-- mangaModel.js
+|   |   |-- routes/
+|   |   |   |-- mangaRoutes.js
+|   |   |   `-- mangaRoutes.test.js
+|   |   `-- app.js
+|   |-- tests/
+|   |   `-- rootInterface.selenium.js
+|   |-- .env.example
+|   |-- eslint.config.js
+|   |-- jest.config.js
+|   |-- package.json
+|   `-- package-lock.json
+|-- frontend/
+|   |-- public/
+|   |-- src/
+|   |   |-- components/
+|   |   |-- services/
+|   |   |   `-- api.js
+|   |   |-- App.jsx
+|   |   |-- index.css
+|   |   `-- main.jsx
+|   |-- .env.example
+|   |-- eslint.config.js
+|   |-- package.json
+|   `-- vite.config.js
+|-- .github/
+|   `-- workflows/
+|       |-- backend-ci.yml
+|       `-- backend-cd.yml
+`-- README.md
 ```
 
 ## Tecnologias Utilizadas
@@ -67,11 +73,15 @@ mangas-brasil/
 - Dotenv
 - CORS
 
-### Qualidade E Testes
+### Qualidade, Testes E DevOps
 
 - ESLint
 - Jest
 - Supertest
+- Selenium WebDriver
+- GitHub Actions
+- PM2
+- AWS EC2
 - Relatorio de cobertura de testes
 
 ## Rotas Do Front-End
@@ -97,6 +107,7 @@ http://localhost:3001/api
 Rotas principais:
 
 ```text
+GET    /                 Informacoes da API
 GET    /api/health       Verifica se a API esta online
 GET    /api/mangas       Lista todos os mangas
 POST   /api/mangas       Cadastra um novo manga
@@ -223,6 +234,12 @@ npm run test:coverage
 
 Executa os testes e gera o relatorio de cobertura.
 
+```bash
+npm run test:interface
+```
+
+Executa o teste de interface com Selenium.
+
 ## Scripts Do Front-End
 
 Dentro da pasta `frontend`:
@@ -276,6 +293,60 @@ Durante a validacao local, os testes cobriram os principais fluxos:
 
 A cobertura minima configurada e de 80%.
 
+### Teste De Interface Com Selenium
+
+Além dos testes unitarios com Jest e Supertest, o Back-End possui um teste de interface com Selenium.
+
+O teste sobe a aplicacao localmente, abre a rota raiz da API em um navegador Chrome headless e valida se a resposta contem as informacoes da API online.
+
+Para rodar:
+
+```bash
+cd backend
+npm install
+npm run test:interface
+```
+
+No GitHub Actions, esse teste e executado no workflow de CI apos o lint e a cobertura de testes.
+
+## CI/CD E Deploy
+
+O repositorio possui dois workflows na pasta `.github/workflows`.
+
+### Continuous Integration
+
+O workflow `.github/workflows/backend-ci.yml` roda automaticamente em Pull Requests para a branch `develop`.
+
+Etapas principais:
+
+- instala as dependencias do Back-End;
+- executa a analise estatica com ESLint;
+- executa os testes unitarios com Jest/Supertest;
+- gera o relatorio de cobertura;
+- instala o Selenium WebDriver;
+- executa o teste de interface com Selenium.
+
+### Deploy Automatizado Na EC2
+
+O workflow `.github/workflows/backend-cd.yml` roda automaticamente quando a branch `develop` recebe atualizacao.
+
+Durante o deploy, o GitHub Actions acessa a instancia EC2 via SSH, atualiza o codigo do projeto, instala as dependencias do Back-End e reinicia a aplicacao com PM2.
+
+Etapas principais:
+
+- conecta na EC2 usando secrets do GitHub;
+- acessa a pasta do Back-End configurada em `EC2_BACKEND_PATH`;
+- executa `git fetch` e `git reset --hard origin/develop`;
+- executa `npm install`;
+- reinicia a aplicacao com `pm2`;
+- valida se a API esta online com `GET /api/health`.
+
+A aplicacao publicada pode ser acessada em:
+
+```text
+http://18.229.164.139/
+```
+
 ## Evolucao Por Sprint
 
 ### Sprint 1
@@ -302,7 +373,9 @@ A cobertura minima configurada e de 80%.
 - Substituicao do `localStorage` pelo banco MongoDB.
 - Rotas reais com React Router.
 - Testes automatizados com Jest/Supertest.
+- Teste de interface com Selenium.
 - ESLint no Front-End e Back-End.
+- CI/CD com GitHub Actions e deploy automatizado na EC2.
 
 ## Integrantes
 
