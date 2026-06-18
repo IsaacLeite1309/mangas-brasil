@@ -14,7 +14,7 @@ app.use(express.json());
 
 app.get('/', (req, res) => {
   res.status(200).json({
-    service: 'MangaBrasil API',
+    service: 'MangaBrasil API - N3 Devops',
     status: 'online',
     endpoints: {
       health: '/api/health',
@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 app.get('/api/health', (req, res) => {
   res.status(200).json({
     status: 'ok',
-    service: 'MangaBrasil API'
+    service: 'MangaBrasil API - N3 Devops'
   });
 });
 
