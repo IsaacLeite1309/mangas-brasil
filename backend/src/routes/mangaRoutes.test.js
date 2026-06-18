@@ -219,7 +219,7 @@ describe('Rotas de mangas', () => {
       expect(response.status).toBe(200);
       expect(response.body).toEqual({
         status: 'ok',
-        service: 'MangaBrasil API'
+        service: 'MangaBrasil API - N3 Devops'
       });
     });
   });
@@ -230,7 +230,7 @@ describe('Rotas de mangas', () => {
 
       expect(response.status).toBe(200);
       expect(response.body).toEqual({
-        service: 'MangaBrasil API',
+        service: 'MangaBrasil API - N3 Devops',
         status: 'online',
         endpoints: {
           health: '/api/health',
